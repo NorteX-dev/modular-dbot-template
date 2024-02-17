@@ -16,8 +16,8 @@ export let modules: Module[] = [];
 
 export const init = async () => {
 	try {
-		await client.login(process.env.DISCORD_BOT_TOKEN);
 		welcome();
+		await client.login(process.env.DISCORD_BOT_TOKEN);
 		loadModules();
 		infoLog(`Logged in as ${client.user?.username}!`);
 	} catch (err) {
