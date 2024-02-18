@@ -3,12 +3,11 @@ import { debugLog, infoLog, severeLog, welcome } from "./logger";
 import { createCommands, createComponents, createEvents } from "nhandler";
 import { Module, loadModules } from "./modules";
 import { Config, loadConfig } from "./config";
+import { PrismaClient } from "@prisma/client";
 
 export let client = new Client({
 	intents: [IntentsBitField.Flags.GuildMembers],
 });
-let loadedModules: Module[] = [];
-
 export let commandHandler = createCommands({ client });
 commandHandler.on("debug", (...m) => debugLog(...m));
 export let eventHandler = createEvents({ client });
@@ -16,12 +15,17 @@ eventHandler.on("debug", (...m) => debugLog(...m));
 export let componentHandler = createComponents({ client });
 componentHandler.on("debug", (...m) => debugLog(...m));
 
+export let modules: Module[] = [];
+export let config: Config;
+export let prisma: PrismaClient = new PrismaClient();
+
 export const init = async () => {
 	try {
 		welcome();
-		loadedModules = await loadModules();
-		const config: Config = await loadConfig(loadedModules);
-		await client.login();
+		modules = await loadModules();
+		config = await loadConfig();
+
+		await client.login(config.token || process.env.DISCORD_BOT_TOKEN);
 		infoLog(`Logged in as ${client.user?.username}!`);
 	} catch (err) {
 		severeLog(err);

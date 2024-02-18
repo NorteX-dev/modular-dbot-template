@@ -4,12 +4,10 @@ import path from "path";
 import yaml from "js-yaml";
 import { commandHandler, componentHandler, eventHandler } from ".";
 import { Command, Component, Event } from "nhandler";
-import { ZodSchema } from "zod";
 
 export type ModuleMetadata = {
 	enabled: boolean;
 	id: string;
-	config?: ZodSchema;
 	depends?: string[];
 	commands?: Command[];
 	events?: Event[];

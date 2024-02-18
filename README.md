@@ -34,8 +34,6 @@ Modules have access to the whole config. However, semantically, should only acce
 
 For example, a `ticketing` module should only ever access `config.ticketing.*`.
 
-This might change in an upcoming release.
-
 ### Triggers
 
 Modules can share "triggers", which are nothing more than functions. This way data can be passed through various models without causing instability if certain modules are not installed.

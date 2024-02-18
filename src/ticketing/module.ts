@@ -8,9 +8,6 @@ export const metadata: ModuleMetadata = {
 	commands: [new CreateCommand()],
 	events: [],
 	components: [],
-	config: z.object({
-		active: z.boolean(),
-	}),
 };
 
 export const init = () => {};

@@ -1,5 +1,5 @@
 core:
-  token: ODYyNDExODMxMTMzOTk1MDI5.Gel3Oa.gyFpQiQb__4rqcT3fyhXgRSROHmIS6LvkxyNFI
+  token: "" # env
 
 ticketing:
   active: true
