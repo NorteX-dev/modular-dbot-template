@@ -40,6 +40,7 @@ This is somewhat comparable to the concept of triggering a tRPC function.
 
 This template utilises:
 
+- `esmodule` - runs on ES Modules (nodenext); this means that Node v18 is required and module-compatible packages are required
 - `typescript` - provides type safety and better quality code
 - [`discordjs`](https://github.com/discordjs/discord.js) - library for connecting to Discord
 - [`nhandler`](https://github.com/nortex-dev/nhandler) - handler for loading, updating and managing commands, events and component callbacks.
