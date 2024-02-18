@@ -1,5 +1,6 @@
-import { ModuleMetadata } from "../core/types";
+import { ModuleMetadata } from "../core/modules";
 import { CreateCommand } from "./commands/create";
+import { z } from "zod";
 
 export const metadata: ModuleMetadata = {
 	enabled: true,
@@ -7,6 +8,9 @@ export const metadata: ModuleMetadata = {
 	commands: [new CreateCommand()],
 	events: [],
 	components: [],
+	config: z.object({
+		active: z.boolean(),
+	}),
 };
 
 export const init = () => {};

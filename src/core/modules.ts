@@ -1,0 +1,104 @@
+import { readFileSync } from "fs";
+import { debugLog, severeLog } from "./logger";
+import path from "path";
+import yaml from "js-yaml";
+import { commandHandler, componentHandler, eventHandler } from ".";
+import { Command, Component, Event } from "nhandler";
+import { ZodSchema } from "zod";
+
+export type ModuleMetadata = {
+	enabled: boolean;
+	id: string;
+	config?: ZodSchema;
+	depends?: string[];
+	commands?: Command[];
+	events?: Event[];
+	components?: Component[];
+};
+
+export type Module = {
+	metadata: ModuleMetadata;
+	init: () => void;
+};
+
+export const loadModules = async (): Promise<Module[]> => {
+	let modules: Module[] = [];
+	let paths = [];
+	debugLog("Loading modules...");
+	// Parse module paths yaml
+	try {
+		const yamlFile: any = yaml.load(readFileSync(path.join(__dirname, "..", "./modules.yml"), "utf-8"));
+		paths = yamlFile.modules;
+	} catch (err) {
+		severeLog("Fatal: modules.yml is not a valid YAML file.");
+		process.exit(1);
+	}
+
+	// Load modules into array
+	try {
+		for (let modulePath of paths) {
+			const module = await import("file://" + path.join(__dirname, "..", modulePath, "./module.ts"));
+			if (!("metadata" in module) || !("init" in module)) {
+				severeLog(
+					`Skipping loading module from '${modulePath}'. Please make sure the module exports a 'metadata' and 'init' property.`
+				);
+				continue;
+			}
+
+			if (!module.metadata.id) {
+				severeLog(
+					`Skipping loading module from '${modulePath}'. Please make sure the module exports a 'metadata.id' property.`
+				);
+				continue;
+			}
+
+			if (modules.find((m) => m.metadata.id === module.metadata.id)) {
+				severeLog(
+					`Skipping loading module from '${modulePath}'. Module with id '${module.metadata.id}' already loaded.`
+				);
+				continue;
+			}
+
+			modules.push(module);
+		}
+	} catch (err) {
+		severeLog("Failed to load module. Please check the module's path in modules.yml.");
+		severeLog(err);
+		process.exit(1);
+	}
+
+	// Check dependencies
+	for (let module of modules) {
+		if (!module.metadata.depends) continue;
+
+		for (let dependency of module.metadata.depends) {
+			if (!modules.find((m) => m.metadata.id === dependency)) {
+				debugLog(
+					`Module '${module.metadata.id}' depends on module '${dependency}', which is not loaded. Disabling module.`
+				);
+				module.metadata.enabled = false;
+			}
+		}
+	}
+
+	// Sort modules by dependencies & filter out disabled.
+	modules = modules.sort((a, b) => {
+		if (a.metadata.depends && a.metadata.depends.includes(b.metadata.id)) return 1;
+		return 0;
+	});
+	modules = modules.filter((module) => module.metadata.enabled);
+
+	for (let module of modules) {
+		for (let command of module.metadata.commands || []) commandHandler.register(command);
+		for (let event of module.metadata.events || []) eventHandler.register(event);
+		for (let component of module.metadata.components || []) componentHandler.register(component);
+	}
+
+	// Initialize
+	for (let module of modules) {
+		await module.init();
+		debugLog(`Initialized module '${module.metadata.id}'.`);
+	}
+
+	return modules;
+};

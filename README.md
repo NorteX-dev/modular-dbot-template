@@ -28,7 +28,13 @@ In the case of a missing dependency, the module will silently fail (on debug mod
 
 ### Configuration
 
-This template uses a single configuration file available to access from any module.
+This template uses a single configuration file available to access from any module. It is stored in YAML and uses a strict validation schema.
+
+Modules have access to the whole config. However, semantically, should only access properties nested in the object named by the module id.
+
+For example, a `ticketing` module should only ever access `config.ticketing.*`.
+
+This might change in an upcoming release.
 
 ### Triggers
 
