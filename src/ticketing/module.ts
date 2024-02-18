@@ -3,7 +3,7 @@ import { CreateCommand } from "./commands/create";
 
 export const metadata: ModuleMetadata = {
 	enabled: true,
-	id: "invoicing",
+	id: "ticketing",
 	commands: [new CreateCommand()],
 	events: [],
 	components: [],

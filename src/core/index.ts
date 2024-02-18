@@ -9,9 +9,12 @@ import { Module } from "./types";
 export let client = new Client({
 	intents: [IntentsBitField.Flags.GuildMembers],
 });
-export let commandHandler = createCommands({ client, debug: true });
-export let eventHandler = createEvents({ client, debug: true });
-export let componentHandler = createComponents({ client, debug: true });
+export let commandHandler = createCommands({ client });
+commandHandler.on("debug", (...m) => debugLog(...m));
+export let eventHandler = createEvents({ client });
+eventHandler.on("debug", (...m) => debugLog(...m));
+export let componentHandler = createComponents({ client });
+componentHandler.on("debug", (...m) => debugLog(...m));
 export let modules: Module[] = [];
 
 export const init = async () => {
@@ -97,6 +100,7 @@ const loadModules = async () => {
 		for (let event of module.metadata.events || []) eventHandler.register(event);
 		for (let component of module.metadata.components || []) componentHandler.register(component);
 	}
+
 	// Initialize
 	for (let module of modules) {
 		await module.init();
