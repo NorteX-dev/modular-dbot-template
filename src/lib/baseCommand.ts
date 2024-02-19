@@ -12,5 +12,5 @@ export abstract class BaseCommand implements Command {
 		return;
 	}
 
-	abstract run(interaction: ChatInputCommandInteraction): Promise<void>;
+	abstract run(interaction: ChatInputCommandInteraction, ...args: any[]): Promise<void>;
 }

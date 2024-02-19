@@ -1,10 +1,10 @@
-import { readFileSync, readdirSync } from "fs";
+import { readdirSync } from "fs";
 import { debugLog, severeLog, warnLog } from "./logger";
 import path from "path";
-import yaml from "js-yaml";
 import { Hono } from "hono";
 import { commandHandler, componentHandler, eventHandler } from "..";
 import { Command, Component, Event } from "nhandler";
+import { BaseEntity } from "typeorm";
 
 export type ModuleMetadata = {
 	enabled: boolean;
@@ -13,6 +13,7 @@ export type ModuleMetadata = {
 	commands?: Command[];
 	events?: Event[];
 	components?: Component[];
+	entities?: BaseEntity[];
 	router?: Hono;
 	routerPrefix?: string;
 };

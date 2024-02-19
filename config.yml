@@ -1,4 +1,14 @@
 token: "" # if empty, taken from DISCORD_BOT_TOKEN env
 
+database:
+  type: "postgres"
+  host: "localhost"
+  port: 5432
+  username: "postgres"
+  password: "postgrespw"
+  database: "test2"
+  synchronize: true
+
 webserver:
+  enabled: true
   port: 3000

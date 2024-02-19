@@ -1,6 +1,7 @@
 import { ModuleMetadata } from "../../lib/modules";
 import { settingsRouter } from "./api";
-import { SettingsCommand } from "./commands/settings";
+import SettingsCommand from "./commands/settings";
+import SettingsEntity from "./entities";
 
 export const metadata: ModuleMetadata = {
 	enabled: true,
@@ -8,8 +9,8 @@ export const metadata: ModuleMetadata = {
 	commands: [new SettingsCommand()],
 	events: [],
 	components: [],
+	entities: [new SettingsEntity()],
 	router: settingsRouter,
-	routerPrefix: "/settings",
 };
 
 export const init = () => {};

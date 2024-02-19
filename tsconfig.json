@@ -5,7 +5,9 @@
 		"moduleResolution": "Bundler",
 		"strict": true,
 		"outDir": "dist",
-		"checkJs": true
+		"checkJs": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true
 	},
 	"exclude": ["node_modules"]
 }
