@@ -1,8 +1,9 @@
-import { readFileSync } from "fs";
-import { debugLog, severeLog } from "./logger";
+import { readFileSync, readdirSync } from "fs";
+import { debugLog, severeLog, warnLog } from "./logger";
 import path from "path";
 import yaml from "js-yaml";
-import { commandHandler, componentHandler, eventHandler } from ".";
+import { Hono } from "hono";
+import { commandHandler, componentHandler, eventHandler } from "..";
 import { Command, Component, Event } from "nhandler";
 
 export type ModuleMetadata = {
@@ -12,6 +13,8 @@ export type ModuleMetadata = {
 	commands?: Command[];
 	events?: Event[];
 	components?: Component[];
+	router?: Hono;
+	routerPrefix?: string;
 };
 
 export type Module = {
@@ -21,46 +24,35 @@ export type Module = {
 
 export const loadModules = async (): Promise<Module[]> => {
 	let modules: Module[] = [];
-	let paths = [];
+	let rootModulesDir = path.join(__dirname, "../modules");
+	let paths = readdirSync(rootModulesDir);
+	paths = paths.map((p) => path.join(rootModulesDir, p));
+
 	debugLog("Loading modules...");
-	// Parse module paths yaml
-	try {
-		const yamlFile: any = yaml.load(readFileSync(path.join(__dirname, "..", "./modules.yml"), "utf-8"));
-		paths = yamlFile.modules;
-	} catch (err) {
-		severeLog("Fatal: modules.yml is not a valid YAML file.");
-		process.exit(1);
-	}
 
 	// Load modules into array
 	try {
 		for (let modulePath of paths) {
-			const module = await import("file://" + path.join(__dirname, "..", modulePath, "./module.ts"));
+			const module = await import("file://" + path.join(modulePath, "./module.ts"));
 			if (!("metadata" in module) || !("init" in module)) {
-				severeLog(
-					`Skipping loading module from '${modulePath}'. Please make sure the module exports a 'metadata' and 'init' property.`
-				);
+				severeLog(`Skipping loading module from '${modulePath}'. Please make sure the module exports a 'metadata' and 'init' property.`);
 				continue;
 			}
 
 			if (!module.metadata.id) {
-				severeLog(
-					`Skipping loading module from '${modulePath}'. Please make sure the module exports a 'metadata.id' property.`
-				);
+				severeLog(`Skipping loading module from '${modulePath}'. Please make sure the module exports a 'metadata.id' property.`);
 				continue;
 			}
 
 			if (modules.find((m) => m.metadata.id === module.metadata.id)) {
-				severeLog(
-					`Skipping loading module from '${modulePath}'. Module with id '${module.metadata.id}' already loaded.`
-				);
+				severeLog(`Skipping loading module from '${modulePath}'. Module with id '${module.metadata.id}' already loaded.`);
 				continue;
 			}
 
 			modules.push(module);
 		}
 	} catch (err) {
-		severeLog("Failed to load module. Please check the module's path in modules.yml.");
+		severeLog("Failed to load module.");
 		severeLog(err);
 		process.exit(1);
 	}
@@ -71,9 +63,7 @@ export const loadModules = async (): Promise<Module[]> => {
 
 		for (let dependency of module.metadata.depends) {
 			if (!modules.find((m) => m.metadata.id === dependency)) {
-				debugLog(
-					`Module '${module.metadata.id}' depends on module '${dependency}', which is not loaded. Disabling module.`
-				);
+				warnLog(`Module '${module.metadata.id}' depends on module '${dependency}', which is not available. Disabling module.`);
 				module.metadata.enabled = false;
 			}
 		}

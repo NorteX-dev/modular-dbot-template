@@ -1,5 +1,4 @@
-core:
-  token: "" # env
+token: "" # if empty, taken from DISCORD_BOT_TOKEN env
 
-ticketing:
-  active: true
+webserver:
+  port: 3000

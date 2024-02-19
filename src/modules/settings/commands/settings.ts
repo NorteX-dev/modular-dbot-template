@@ -1,9 +1,9 @@
 import { ChatInputCommandInteraction } from "discord.js";
-import { BaseCommand } from "../../core/baseCommand";
+import { BaseCommand } from "../../../lib/baseCommand";
 
-export class CreateCommand extends BaseCommand {
-	name = "create";
-	description = "Create a ticket";
+export class SettingsCommand extends BaseCommand {
+	name = "settings";
+	description = "Manage guild settings.";
 	options = [];
 
 	async run(interaction: ChatInputCommandInteraction): Promise<void> {

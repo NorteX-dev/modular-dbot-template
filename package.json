@@ -11,17 +11,20 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"@nortex/pretty-zod-error": "^1.0.3",
+		"@hono/node-server": "^1.8.1",
+		"@nortex/pretty-zod-error": "^2.0.0",
 		"@prisma/client": "5.9.1",
 		"chalk": "^5.3.0",
 		"discord.js": "^14.14.1",
 		"dotenv": "^16.4.4",
+		"hono": "^4.0.4",
 		"js-yaml": "^4.1.0",
 		"nhandler": "^3.0.4",
 		"zod": "^3.22.4"
 	},
 	"devDependencies": {
 		"@types/js-yaml": "^4.0.9",
+		"@types/node": "^20.11.19",
 		"prisma": "5.9.1"
 	}
 }

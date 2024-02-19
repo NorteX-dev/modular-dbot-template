@@ -1,0 +1,376 @@
+
+Bot starting at 2024-02-19T15:08:20.639Z
+
+[ 'Loading modules...' ]
+[ 'Registered command create.' ]
+[ "Registered API route '/ticketing'." ]
+[ "Initialized module 'ticketing'." ]
+[ 'Webserver serving on http://localhost:3000.' ]
+[ 'Logged in as Testing bot!' ]
+Log start at 2024-02-19T15:08:56.907Z
+
+[ 'Loading modules...' ]
+[ 'Registered command create.' ]
+[ "Registered API route '/ticketing'." ]
+[ "Initialized module 'ticketing'." ]
+[ 'Webserver serving on http://localhost:3000.' ]
+[ 'Logged in as Testing bot!' ]
+--- Log start at 2024-02-19T15:09:02.328Z
+
+[ 'Loading modules...' ]
+[ 'Registered command create.' ]
+[ "Initialized module 'ticketing'." ]
+[ "Registered API route '/ticketing'." ]
+[ 'Webserver serving on http://localhost:3000.' ]
+[ 'Logged in as Testing bot!' ]
+
+--- Log start at 2024-02-19T15:09:36.679Z
+
+[ 'Loading modules...' ]
+[ 'Registered command create.' ]
+[ "Initialized module 'ticketing'." ]
+[ 'Webserver serving on http://localhost:3000.' ]
+[ "Registered API route '/ticketing'." ]
+[ 'Logged in as Testing bot!' ]
+
+--- Log start at 2024-02-19T15:09:39.115Z ---
+
+[ 'Loading modules...' ]
+[ 'Registered command create.' ]
+[ "Initialized module 'ticketing'." ]
+[ 'Webserver serving on http://localhost:3000.' ]
+[ "Registered API route '/ticketing'." ]
+[ 'Logged in as Testing bot!' ]
+
+--- Log start at 2024-02-19T15:09:58.133Z ---
+
+[ 'Loading modules...' ]
+[ 'Registered command create.' ]
+[ "Initialized module 'ticketing'." ]
+[ "Registered API route '/ticketing'." ]
+[ 'Webserver serving on http://localhost:3000.' ]
+[ 'Logged in as Testing bot!' ]
+
+--- Log start at 2024-02-19T15:10:01.662Z ---
+
+[ 'Loading modules...' ]
+[ 'Registered command create.' ]
+[ "Initialized module 'ticketing'." ]
+[ "Registered API route '/ticketing'." ]
+[ 'Webserver serving on http://localhost:3000.' ]
+[ 'Logged in as Testing bot!' ]
+
+--- Log start at 2024-02-19T15:10:18.973Z ---
+
+Loading modules...
+Registered command create.
+Initialized module 'ticketing'.
+Registered API route '/ticketing'.
+Webserver serving on http://localhost:3000.
+Logged in as Testing bot!
+
+--- Log start at 2024-02-19T15:10:37.825Z ---
+
+Loading modules...
+Registered command create.
+Initialized module 'ticketing'.
+Webserver serving on http://localhost:3000.
+Registered API route '/ticketing'.
+Logged in as Testing bot!
+
+--- Log start at 2024-02-19T15:11:14.599Z ---
+
+Loading modules...
+Registered command create.
+Initialized module 'ticketing'.
+Webserver serving on http://localhost:3000.
+Registered API route '/ticketing'.
+Logged in as Testing bot!
+
+--- Log start at 2024-02-19T15:12:16.597Z ---
+
+Loading modules...
+Registered command create.
+Registered API route '/ticketing'.
+Webserver serving on http://localhost:3000.
+Initialized module 'ticketing'.
+Logged in as Testing bot!
+
+--- Log start at 2024-02-19T15:14:08.100Z ---
+
+Debug Loading modules...
+Debug Registered command create.
+Debug Initialized module 'ticketing'.
+Debug Registered API route '/ticketing'.
+Debug Webserver serving on http://localhost:3000.
+Info Logged in as Testing bot!
+[Debug] Loading modules...
+
+--- Log start at 2024-02-19T15:14:25.167Z ---
+
+[Debug] Registered command create.
+[Debug] Initialized module 'ticketing'.
+[Debug] Webserver serving on http://localhost:3000.
+[Debug] Registered API route '/ticketing'.
+[Info] Logged in as Testing bot!
+
+--- Log start at 2024-02-19T15:14:46.426Z ---
+
+[Debug] Loading modules...
+[Debug] Registered command create.
+[Debug] Initialized module 'ticketing'.
+[Debug] Registered API route '/ticketing'.
+[Debug] Webserver serving on http://localhost:3000.
+[Info] Logged in as Testing bot!
+
+--- Log start at 2024-02-19T15:38:29.450Z ---
+
+[Debug] Loading modules...
+[Debug] Registered command create.
+[Debug] Initialized module 'ticketing'.
+[Debug] Registered API route '/ticketing'.
+[Debug] Webserver serving on http://localhost:3000.
+[Info] Logged in as Testing bot!
+
+--- Log start at 2024-02-19T15:40:09.640Z ---
+
+[Debug] Loading modules...
+
+--- Log start at 2024-02-19T15:40:18.238Z ---
+
+[Debug] Loading modules...
+
+--- Log start at 2024-02-19T15:40:39.424Z ---
+
+[Debug] Loading modules...
+
+--- Log start at 2024-02-19T15:40:49.817Z ---
+
+[Debug] Loading modules...
+
+--- Log start at 2024-02-19T15:41:46.209Z ---
+
+[Debug] Loading modules...
+
+--- Log start at 2024-02-19T15:43:40.729Z ---
+
+[Debug] Loading modules...
+
+--- Log start at 2024-02-19T15:43:56.619Z ---
+
+[Debug] Loading modules...
+
+--- Log start at 2024-02-19T15:44:51.960Z ---
+
+[Debug] Loading modules...
+
+--- Log start at 2024-02-19T15:44:56.005Z ---
+
+[Debug] Loading modules...
+[Debug] Loading modules...
+
+--- Log start at 2024-02-19T15:45:54.906Z ---
+
+
+--- Log start at 2024-02-19T15:45:57.238Z ---
+
+[Debug] Loading modules...
+
+--- Log start at 2024-02-19T15:46:50.153Z ---
+
+[Debug] Loading modules...
+
+--- Log start at 2024-02-19T15:47:01.376Z ---
+
+[Debug] Loading modules...
+
+--- Log start at 2024-02-19T15:48:24.419Z ---
+
+[Debug] Loading modules...
+[Debug] Registered command create.
+[Debug] Initialized module 'ticketing'.
+[Debug] Registered API route '/ticketing'.
+[Debug] Webserver serving on http://localhost:3000.
+[Info] Logged in as Testing bot!
+
+--- Log start at 2024-02-19T15:48:28.031Z ---
+
+[Debug] Loading modules...
+[Debug] Registered command create.
+[Debug] Registered API route '/ticketing'.
+[Debug] Initialized module 'ticketing'.
+[Debug] Webserver serving on http://localhost:3000.
+[Info] Logged in as Testing bot!
+[Debug]   <-- GET /tickets
+[Debug]   --> GET /tickets [32m200[0m 6ms
+
+--- Log start at 2024-02-19T15:49:48.387Z ---
+
+[Debug] Loading modules...
+[Debug] Registered command create.
+[Debug] Initialized module 'ticketing'.
+[Debug] Webserver serving on http://localhost:3000.
+[Debug] Registered API route '/ticketing'.
+[Info] Logged in as Testing bot!
+
+--- Log start at 2024-02-19T15:55:44.945Z ---
+
+[Debug] Loading modules...
+[Debug] Initialized module 'ticketing'.
+[Debug] Registered API route '/ticketing'.
+[Debug] Webserver serving on http://localhost:3000.
+[Debug]   <-- GET /tickets
+[Debug]   --> GET /tickets [32m200[0m 4ms
+[Info] Logged in as Testing bot!
+[Debug]   <-- GET /tickets
+[Debug]   --> GET /tickets [32m200[0m 1ms
+
+--- Log start at 2024-02-19T15:56:30.577Z ---
+
+[Debug] Loading modules...
+[Debug] Initialized module 'ticketing'.
+[Debug] Registered API route '/ticketing'.
+[Debug] Webserver serving on http://localhost:3000.
+[Info] Logged in as Testing bot!
+
+--- Log start at 2024-02-19T15:56:45.594Z ---
+
+[Debug] Loading modules...
+[Debug] Initialized module 'ticketing'.
+[Debug] Registered API route '/ticketing'.
+[Debug] Webserver serving on http://localhost:3000.
+[Info] Logged in as Testing bot!
+[Debug]   <-- GET /tickets
+[Debug]   --> GET /tickets [32m200[0m 4ms
+[Debug]   <-- GET /settings
+[Debug]   --> GET /settings [33m404[0m 1ms
+
+--- Log start at 2024-02-19T15:56:55.800Z ---
+
+[Debug] Loading modules...
+[Debug] Initialized module 'ticketing'.
+[Debug] Registered API route '/ticketing'.
+[Debug] Webserver serving on http://localhost:3000.
+[Debug]   <-- GET /settings
+[Debug]   --> GET /settings [31m503[0m 4ms
+[Debug]   <-- GET /settings
+[Debug]   --> GET /settings [31m503[0m 1ms
+[Info] Logged in as Testing bot!
+[Debug]   <-- GET /settings
+[Debug]   --> GET /settings [33m404[0m 0ms
+
+--- Log start at 2024-02-19T15:57:03.510Z ---
+
+[Debug] Loading modules...
+[Debug] Initialized module 'ticketing'.
+[Debug] Webserver serving on http://localhost:3000.
+[Debug] Registered API route '/ticketing'.
+[Info] Logged in as Testing bot!
+
+--- Log start at 2024-02-19T15:59:39.574Z ---
+
+[Debug] Loading modules...
+
+--- Log start at 2024-02-19T15:59:45.535Z ---
+
+[Debug] Loading modules...
+
+--- Log start at 2024-02-19T16:00:10.466Z ---
+
+[Debug] Loading modules...
+[Debug] Registered command settings.
+[Debug] Initialized module 'settings'.
+[Debug] Initialized module 'ticketing'.
+[Debug] Registered API route '/ticketing'.
+[Debug] Webserver serving on http://localhost:3000.
+[Debug] Registered API route '/settings'.
+[Info] Logged in as Testing bot!
+
+--- Log start at 2024-02-19T16:00:15.117Z ---
+
+[Debug] Loading modules...
+[Debug] Registered command settings.
+[Debug] Initialized module 'settings'.
+[Debug] Registered API route '/settings'.
+[Debug] Initialized module 'ticketing'.
+[Debug] Webserver serving on http://localhost:3000.
+[Debug] Registered API route '/ticketing'.
+[Info] Logged in as Testing bot!
+
+--- Log start at 2024-02-19T16:04:19.930Z ---
+
+[Debug] Loading modules...
+[Debug] Registered command settings.
+[Debug] Initialized module 'settings'.
+[Debug] Webserver serving on http://localhost:3000.
+[Debug] Initialized module 'ticketing'.
+[Info] Logged in as Testing bot!
+
+--- Log start at 2024-02-19T16:05:37.868Z ---
+
+[Debug] Loading modules...
+[Debug] Registered command settings.
+[Debug] Initialized module 'settings'.
+[Debug] Mounted API routes: /settings/*, /ticketing/*.
+[Debug] Initialized module 'ticketing'.
+[Debug] Webserver serving on http://localhost:3000.
+[Info] Logged in as Testing bot!
+
+--- Log start at 2024-02-19T16:05:45.211Z ---
+
+[Debug] Loading modules...
+[Debug] Registered command settings.
+[Debug] Initialized module 'settings'.
+[Debug] Mounted API routes: /settings/*, /ticketing/*.
+[Debug] Webserver serving on http://localhost:3000.
+[Debug] Initialized module 'ticketing'.
+[Info] Logged in as Testing bot!
+
+--- Log start at 2024-02-19T16:05:54.427Z ---
+
+[Debug] Loading modules...
+[Debug] Registered command settings.
+[Debug] Initialized module 'settings'.
+[Debug] Mounted undefined API routes: /settings/*, /ticketing/*.
+[Debug] Initialized module 'ticketing'.
+[Debug] Webserver serving on http://localhost:3000.
+
+--- Log start at 2024-02-19T16:05:56.041Z ---
+
+[Debug] Loading modules...
+[Debug] Registered command settings.
+[Debug] Initialized module 'settings'.
+[Debug] Mounted 2 API routes: /settings/*, /ticketing/*.
+[Debug] Initialized module 'ticketing'.
+[Debug] Webserver serving on http://localhost:3000.
+[Info] Logged in as Testing bot!
+
+--- Log start at 2024-02-19T16:06:05.419Z ---
+
+[Debug] Loading modules...
+[Debug] Registered command settings.
+[Debug] Initialized module 'settings'.
+[Debug] Mounted 2 API routes: /settings, /ticketing.
+[Debug] Initialized module 'ticketing'.
+[Debug] Webserver serving on http://localhost:3000.
+[Info] Logged in as Testing bot!
+
+--- Log start at 2024-02-19T16:06:24.753Z ---
+
+[Debug] Loading modules...
+[Debug] Registered command settings.
+[Debug] Initialized module 'settings'.
+[Debug] Initialized module 'ticketing'.
+[Debug] [Webserver] Mounted 2 API routes: /settings, /ticketing.
+[Debug] Webserver serving on http://localhost:3000.
+[Info] Logged in as Testing bot!
+
+--- Log start at 2024-02-19T16:06:27.276Z ---
+
+[Debug] Loading modules...
+[Debug] Registered command settings.
+[Debug] Initialized module 'settings'.
+[Debug] [Webserver] Mounted 2 API routes: /settings, /ticketing.
+[Debug] Initialized module 'ticketing'.
+[Debug] [Webserver] Webserver serving on http://localhost:3000.
+[Info] Logged in as Testing bot!
