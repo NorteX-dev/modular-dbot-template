@@ -10,13 +10,13 @@ program
 	.description(
 		"The NBot command line utility for generating projects and adding modules."
 	)
-	.version("0.0.1");
+	.version("0.1.0");
 
 program
 	.command("new")
 	.description("create a new project")
 	.argument("<project_name>", "The name of the project.")
-	.option("-t, --template <template>", "The template to use.")
+	.option("--use-npm <template>", "Force use of npm to create project.")
 	.action((str, opts) => {
 		const fullPath = path.join(__dirname, str);
 		console.log("Creating a new project inside:", fullPath);
