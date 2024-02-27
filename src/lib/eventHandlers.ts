@@ -1,7 +1,7 @@
 import { Client, Interaction } from "discord.js";
-import { commandHandler, componentHandler } from "..";
+import { commandHandler, componentHandler, getAction, modules } from "..";
 import { Event, isAutocompleteInteraction, isCommandInteraction, isComponentInteraction } from "nhandler";
-import { infoLog } from "./logger";
+import { debugLog, infoLog } from "./logger";
 
 export class ReadyEvent implements Event {
 	client!: Client;
@@ -18,12 +18,22 @@ export class InteractionCreateEvent implements Event {
 	name = "interactionCreate";
 
 	async run(interaction: Interaction) {
+		const getSettings = getAction("settings", "getSettings"),
+			createSettings = getAction("settings", "createSettings");
+
+		let settings = null;
+		if (getSettings && createSettings) {
+			debugLog("Fetching settings for guild " + interaction.guildId);
+			settings = await getSettings(interaction.guildId);
+			if (!settings) settings = await createSettings(interaction.guildId);
+		}
+
 		if (isCommandInteraction(interaction)) {
-			commandHandler.runCommand(interaction);
+			commandHandler.runCommand(interaction, { settings });
 		} else if (isAutocompleteInteraction(interaction)) {
-			commandHandler.runAutocomplete(interaction);
+			commandHandler.runAutocomplete(interaction, { settings });
 		} else if (isComponentInteraction(interaction)) {
-			componentHandler.runComponent(interaction);
+			componentHandler.runComponent(interaction, { settings });
 		}
 	}
 }

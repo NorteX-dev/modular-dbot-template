@@ -22,9 +22,9 @@ type Setting = {
 
 export const settingsData: Setting[] = [
 	{
-		key: "commissionLog",
-		name: "Commission Log Channel",
-		description: "The channel where commissions are sent and are available for claim and messaging.",
+		key: "exampleSetting",
+		name: "Example",
+		description: "hi",
 		...CHANNEL,
 	},
 ];

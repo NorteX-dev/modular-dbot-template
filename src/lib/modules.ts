@@ -13,9 +13,10 @@ export type ModuleMetadata = {
 	commands?: Command[];
 	events?: Event[];
 	components?: Component[];
-	entities?: BaseEntity[];
+	entities?: (typeof BaseEntity)[];
 	router?: Hono;
 	routerPrefix?: string;
+	actions?: Record<string, Function>;
 };
 
 export type Module = {
@@ -36,17 +37,23 @@ export const loadModules = async (): Promise<Module[]> => {
 		for (let modulePath of paths) {
 			const module = await import("file://" + path.join(modulePath, "./module.ts"));
 			if (!("metadata" in module) || !("init" in module)) {
-				severeLog(`Skipping loading module from '${modulePath}'. Please make sure the module exports a 'metadata' and 'init' property.`);
+				severeLog(
+					`Skipping loading module from '${modulePath}'. Please make sure the module exports a 'metadata' and 'init' property.`
+				);
 				continue;
 			}
 
 			if (!module.metadata.id) {
-				severeLog(`Skipping loading module from '${modulePath}'. Please make sure the module exports a 'metadata.id' property.`);
+				severeLog(
+					`Skipping loading module from '${modulePath}'. Please make sure the module exports a 'metadata.id' property.`
+				);
 				continue;
 			}
 
 			if (modules.find((m) => m.metadata.id === module.metadata.id)) {
-				severeLog(`Skipping loading module from '${modulePath}'. Module with id '${module.metadata.id}' already loaded.`);
+				severeLog(
+					`Skipping loading module from '${modulePath}'. Module with id '${module.metadata.id}' already loaded.`
+				);
 				continue;
 			}
 
@@ -64,7 +71,9 @@ export const loadModules = async (): Promise<Module[]> => {
 
 		for (let dependency of module.metadata.depends) {
 			if (!modules.find((m) => m.metadata.id === dependency)) {
-				warnLog(`Module '${module.metadata.id}' depends on module '${dependency}', which is not available. Disabling module.`);
+				warnLog(
+					`Module '${module.metadata.id}' depends on module '${dependency}', which is not available. Disabling module.`
+				);
 				module.metadata.enabled = false;
 			}
 		}

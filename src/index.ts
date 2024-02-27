@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { config as env } from "dotenv";
-import { Client, IntentsBitField } from "discord.js";
+import { Client, GatewayIntentBits } from "discord.js";
 import { debugLog, severeLog, welcome, writeLogToFile } from "./lib/logger";
 import { createCommands, createComponents, createEvents } from "nhandler";
 import { Module, loadModules } from "./lib/modules";
@@ -13,7 +13,15 @@ import { InteractionCreateEvent, ReadyEvent } from "./lib/eventHandlers";
 env();
 
 export let client = new Client({
-	intents: [IntentsBitField.Flags.GuildMembers],
+	intents: [
+		GatewayIntentBits.Guilds,
+		GatewayIntentBits.GuildMessages,
+		GatewayIntentBits.GuildMessageReactions,
+		GatewayIntentBits.DirectMessages,
+		GatewayIntentBits.GuildMembers,
+		GatewayIntentBits.GuildPresences,
+		GatewayIntentBits.MessageContent,
+	],
 });
 export let commandHandler = createCommands({ client });
 export let eventHandler = createEvents({ client });
@@ -26,6 +34,12 @@ commandHandler.on("debug", debugLog);
 eventHandler.on("debug", debugLog);
 componentHandler.on("debug", debugLog);
 
+export const getAction = (moduleId: string, actionId: string) => {
+	const module = modules.find((m) => m.metadata.id === moduleId);
+	if (!module) return;
+	return module.metadata.actions?.[actionId];
+};
+
 export const init = async () => {
 	try {
 		writeLogToFile(`\n--- Log start at ${new Date().toISOString()} ---\n`);
@@ -35,7 +49,7 @@ export const init = async () => {
 		config = await loadConfig();
 		if (config.webserver.enabled) initWebserver(config.webserver.port);
 
-		let entities: BaseEntity[] = modules.map((module) => module.metadata.entities || []).flat();
+		let entities: (typeof BaseEntity)[] = modules.map((module) => module.metadata.entities || []).flat();
 
 		const dbUrl = new URL(config.database.url);
 		dataSource = new DataSource({
@@ -47,7 +61,7 @@ export const init = async () => {
 			database: dbUrl.pathname.slice(1),
 			synchronize: config.database.synchronize,
 			logging: config.database.logging,
-			entities: entities as any[],
+			entities: entities,
 		});
 
 		await dataSource.initialize();

@@ -105,7 +105,7 @@ export default class SettingsCommand extends BaseCommand {
 	async runView(interaction: ChatInputCommandInteraction, { settings }: { settings: any }): Promise<void> {
 		const name = interaction.options.getString("name");
 		if (!name) {
-			const cleanSettings = settings.toJSON();
+			const cleanSettings = settings;
 
 			delete cleanSettings.id;
 			delete cleanSettings.guildId;
@@ -128,7 +128,7 @@ export default class SettingsCommand extends BaseCommand {
 							value: cleanSettings[key],
 							guild: interaction.guild!,
 						}) || "Not set";
-				embed.addFields([{ name: name, value: formattedValue, inline: true }]);
+				embed.addFields({ name: name, value: formattedValue, inline: true });
 			});
 			interaction.reply({ embeds: [embed], ephemeral: true });
 		} else {

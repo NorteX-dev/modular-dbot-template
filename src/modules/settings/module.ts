@@ -9,8 +9,16 @@ export const metadata: ModuleMetadata = {
 	commands: [new SettingsCommand()],
 	events: [],
 	components: [],
-	entities: [new SettingsEntity()],
+	entities: [SettingsEntity],
 	router: settingsRouter,
+	actions: {
+		getSettings: (guildId: string) => {
+			return SettingsEntity.findOne({ where: { guildId: guildId } });
+		},
+		createSettings: (guildId: string) => {
+			return SettingsEntity.create({ guildId: guildId }).save();
+		},
+	},
 };
 
 export const init = () => {};
