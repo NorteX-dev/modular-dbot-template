@@ -121,14 +121,13 @@ export default class SettingsCommand extends BaseCommand {
 				if (cleanSettings[key] === null) {
 					return embed.addFields([{ name: name, value: "Not set", inline: true }]);
 				}
-				const formattedValue = `${
+				const formattedValue =
 					settingsData
 						.find((r) => r.key === key)
 						?.formatter({
 							value: cleanSettings[key],
 							guild: interaction.guild!,
-						}) || "Not set"
-				}`;
+						}) || "Not set";
 				embed.addFields([{ name: name, value: formattedValue, inline: true }]);
 			});
 			interaction.reply({ embeds: [embed], ephemeral: true });
