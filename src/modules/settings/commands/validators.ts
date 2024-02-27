@@ -1,7 +1,9 @@
 import { CategoryChannel, ChannelType, Collection, Guild, GuildBasedChannel, Role, TextChannel } from "discord.js";
 
 function getChannel({ value, guild }: { value: string; guild: Guild }): TextChannel | undefined {
-	const textChannels = guild.channels.cache.filter((r: GuildBasedChannel) => r.type === ChannelType.GuildText) as Collection<string, TextChannel>;
+	const textChannels = guild.channels.cache.filter(
+		(r: GuildBasedChannel) => r.type === ChannelType.GuildText
+	) as Collection<string, TextChannel>;
 	return (
 		textChannels.find((r: GuildBasedChannel) => r.toString() === value) ||
 		textChannels.find((r: GuildBasedChannel) => r.name.toLowerCase() === value.toLowerCase()) ||
@@ -18,10 +20,9 @@ function getRole({ value, guild }: { value: string; guild: Guild }): Role | unde
 }
 
 function getCategory({ value, guild }: { value: string; guild: Guild }): CategoryChannel | undefined {
-	const categoryChannels = guild.channels.cache.filter((r: GuildBasedChannel) => r.type === ChannelType.GuildCategory) as Collection<
-		string,
-		CategoryChannel
-	>;
+	const categoryChannels = guild.channels.cache.filter(
+		(r: GuildBasedChannel) => r.type === ChannelType.GuildCategory
+	) as Collection<string, CategoryChannel>;
 	return (
 		categoryChannels.find((cat: GuildBasedChannel) => cat.toString() === value) ||
 		categoryChannels.find((cat: GuildBasedChannel) => cat.name.toLowerCase() === value.toLowerCase()) ||
@@ -30,46 +31,45 @@ function getCategory({ value, guild }: { value: string; guild: Guild }): Categor
 }
 
 // Channels
-const CHANNEL_VALIDATOR = ({ value, guild }: { value: string; guild: Guild }) => {
+const CHANNEL_VALIDATOR = ({ value, guild }: { value: string; guild: Guild }): string | null => {
 	const channel = getChannel({ value, guild });
 	if (!channel) return "Please provide a valid channel.";
 	return null;
 };
-const CHANNEL_TRANSFORM = ({ value, guild }: { value: string; guild: Guild }) => {
+const CHANNEL_TRANSFORM = ({ value, guild }: { value: string; guild: Guild }): string | undefined => {
 	const channel = getChannel({ value, guild });
 	return channel?.id;
 };
-const CHANNEL_FORMATTER = ({ value, guild }: { value: string; guild: Guild }) => {
-	return getChannel({ value, guild }) ?? "Not set";
+const CHANNEL_FORMATTER = ({ value, guild }: { value: string; guild: Guild }): string | undefined => {
+	return getChannel({ value, guild })?.toString();
 };
 
 // Role
-const ROLE_VALIDATOR = ({ value, guild }: { value: string; guild: Guild }) => {
+const ROLE_VALIDATOR = ({ value, guild }: { value: string; guild: Guild }): string | null => {
 	const role = getRole({ value, guild });
 	if (!role) return "Please provide a valid role.";
 	return null;
 };
-const ROLE_TRANSFORM = ({ value, guild }: { value: string; guild: Guild }) => {
+const ROLE_TRANSFORM = ({ value, guild }: { value: string; guild: Guild }): string | undefined => {
 	const role = getRole({ value, guild });
 	return role?.id;
 };
-const ROLE_FORMATTER = ({ value, guild }: { value: string; guild: Guild }) => {
-	return getRole({ value, guild });
+const ROLE_FORMATTER = ({ value, guild }: { value: string; guild: Guild }): string | undefined => {
+	return getRole({ value, guild })?.toString();
 };
 
 // Categories
-const CATEGORY_VALIDATOR = ({ value, guild }: { value: string; guild: Guild }) => {
+const CATEGORY_VALIDATOR = ({ value, guild }: { value: string; guild: Guild }): string | null => {
 	const category = getCategory({ value, guild });
 	if (!category) return "Please provide a valid category.";
 	return null;
 };
-const CATEGORY_TRANSFORM = ({ value, guild }: { value: string; guild: Guild }) => {
+const CATEGORY_TRANSFORM = ({ value, guild }: { value: string; guild: Guild }): string | undefined => {
 	const category = getCategory({ value, guild });
 	return category?.id;
 };
-const CATEGORY_FORMATTER = ({ value, guild }: { value: string; guild: Guild }) => {
-	const category = getCategory({ value, guild });
-	return category?.name ?? "Not set";
+const CATEGORY_FORMATTER = ({ value, guild }: { value: string; guild: Guild }): string | undefined => {
+	return getCategory({ value, guild })?.name;
 };
 
 export const CHANNEL = {

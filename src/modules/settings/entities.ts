@@ -6,6 +6,6 @@ export default class SettingsEntity extends WithIdAndTimestamps {
 	@Column("text", { unique: true, nullable: false })
 	guildId!: string;
 
-	// @Column("text")
-	// commissionLog?: string;
+	@Column("text")
+	exampleSetting?: string;
 }

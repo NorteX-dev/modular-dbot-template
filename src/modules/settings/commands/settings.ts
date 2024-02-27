@@ -23,12 +23,17 @@ export default class SettingsCommand extends BaseCommand {
 					name: "name",
 					description: "The setting to update.",
 					required: true,
-					choices: settingsData.map((s) => ({ name: s.name, value: s.key, description: s.description })),
+					choices: settingsData.map((s) => ({
+						name: s.name,
+						value: s.key,
+						description: s.description,
+					})),
 				},
 				{
 					type: ApplicationCommandOptionType.String,
 					name: "value",
-					description: "The new value for the setting. For users, channels and roles, either a mention, name or ID is fine.",
+					description:
+						"The new value for the setting. For users, channels and roles, either a mention, name or ID is fine.",
 					required: true,
 				},
 			],
@@ -43,7 +48,11 @@ export default class SettingsCommand extends BaseCommand {
 					name: "name",
 					description: "The setting to look up.",
 					required: false,
-					choices: settingsData.map((s) => ({ name: s.name, value: s.key, description: s.description })),
+					choices: settingsData.map((s) => ({
+						name: s.name,
+						value: s.key,
+						description: s.description,
+					})),
 				},
 			],
 		},
@@ -67,7 +76,10 @@ export default class SettingsCommand extends BaseCommand {
 		if (error) {
 			throw new CommandError(error);
 		}
-		const newValue = data.transform({ value: value, guild: interaction.guild! });
+		const newValue = data.transform({
+			value: value,
+			guild: interaction.guild!,
+		});
 		if (!newValue) {
 			throw new CommandError("Invalid value.");
 		}
@@ -101,7 +113,9 @@ export default class SettingsCommand extends BaseCommand {
 			delete cleanSettings.updatedAt;
 
 			// Display all settings
-			const embed = infoEmbed().setTitle("Settings").setDescription(`Current settings for *\`${interaction.guild!.name}\`*:`);
+			const embed = infoEmbed()
+				.setTitle("Settings")
+				.setDescription(`Current settings for *\`${interaction.guild!.name}\`*:`);
 			Object.keys(cleanSettings).forEach((key) => {
 				const name = settingsData.find((s) => s.key === key)?.name || key;
 				if (cleanSettings[key] === null) {
@@ -125,8 +139,14 @@ export default class SettingsCommand extends BaseCommand {
 				throw new CommandError(`No setting with the name \`${name}\` exists.`);
 			}
 
+			const formatter =
+				data.formatter({
+					value: settings[data.key],
+					guild: interaction.guild!,
+				}) || "Invalid";
+			const embed = infoEmbed(`\`${data.name}\` is set to ${formatter}.`);
 			interaction.reply({
-				embeds: [infoEmbed(`\`${data.name}\` is set to ${data.formatter({ value: settings[data.key], guild: interaction.guild! }) || "Invalid"}.`)],
+				embeds: [embed],
 				ephemeral: true,
 			});
 		}
