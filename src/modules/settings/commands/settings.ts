@@ -138,11 +138,7 @@ export default class SettingsCommand extends BaseCommand {
 				throw new CommandError(`No setting with the name \`${name}\` exists.`);
 			}
 
-			const formatter =
-				data.formatter({
-					value: settings[data.key],
-					guild: interaction.guild!,
-				}) || "Invalid";
+			const formatter = data.formatter({ value: settings[data.key], guild: interaction.guild! }) || "Invalid";
 			const embed = infoEmbed(`\`${data.name}\` is set to ${formatter}.`);
 			interaction.reply({
 				embeds: [embed],

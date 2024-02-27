@@ -1,7 +1,7 @@
 import "reflect-metadata";
 import { config as env } from "dotenv";
 import { Client, IntentsBitField } from "discord.js";
-import { debugLog, infoLog, severeLog, welcome, writeLogToFile } from "./lib/logger";
+import { debugLog, severeLog, welcome, writeLogToFile } from "./lib/logger";
 import { createCommands, createComponents, createEvents } from "nhandler";
 import { Module, loadModules } from "./lib/modules";
 import { Config } from "./configShape";
@@ -35,24 +35,21 @@ export const init = async () => {
 		config = await loadConfig();
 		if (config.webserver.enabled) initWebserver(config.webserver.port);
 
-		let entities: BaseEntity[] = [];
-		for (let module of modules) {
-			if (module.metadata.entities) {
-				entities = entities.concat(module.metadata.entities);
-			}
-		}
+		let entities: BaseEntity[] = modules.map((module) => module.metadata.entities || []).flat();
 
+		const dbUrl = new URL(config.database.url);
 		dataSource = new DataSource({
-			type: config.database.type,
-			host: config.database.host,
-			port: config.database.port,
-			username: config.database.username || process.env.DB_USER,
-			password: config.database.password || process.env.DB_PASSWORD,
-			database: config.database.database,
-			synchronize: true,
-			logging: true,
+			type: dbUrl.protocol.replace(":", "") as any,
+			host: dbUrl.hostname,
+			port: parseInt(dbUrl.port),
+			username: dbUrl.username,
+			password: dbUrl.password,
+			database: dbUrl.pathname.slice(1),
+			synchronize: config.database.synchronize,
+			logging: config.database.logging,
 			entities: entities as any[],
 		});
+
 		await dataSource.initialize();
 		await client.login(config.token || process.env.DISCORD_BOT_TOKEN);
 	} catch (err) {
