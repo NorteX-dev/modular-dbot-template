@@ -1,9 +1,9 @@
 import { serve } from "@hono/node-server";
 import { Hono } from "hono";
-import { debugLog } from "./lib/logger";
 import { logger } from "hono/logger";
 import { cors } from "hono/cors";
-import { client, modules } from ".";
+import { client } from ".";
+import { debugLog, getModules } from "nhandler/framework";
 
 export const masterHono = new Hono();
 
@@ -19,14 +19,18 @@ const init = async (port: number) => {
 	});
 
 	let registeredEndpoints = [];
-	for (let module of modules) {
+	for (let module of getModules()) {
 		if (module.metadata.router) {
 			masterHono.route(`${module.metadata.routerPrefix || module.metadata.id}`, module.metadata.router);
 			registeredEndpoints.push(module.metadata.id);
 		}
 	}
 
-	debugLog(`[Webserver] Mounted ${registeredEndpoints.length} API routes: ${registeredEndpoints.map((e) => `/${e}`).join(", ")}.`);
+	debugLog(
+		`[Webserver] Mounted ${registeredEndpoints.length} API routes: ${registeredEndpoints
+			.map((e) => `/${e}`)
+			.join(", ")}.`
+	);
 
 	masterHono.all("*", (ctx) => {
 		return ctx.json({ ok: false, message: "Not found" }, 404);

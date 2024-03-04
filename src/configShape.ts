@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export let configSchema = z.object({
+export let configShape = z.object({
 	token: z.string().optional(),
 	database: z.object({
 		url: z.string(),
@@ -13,4 +13,4 @@ export let configSchema = z.object({
 	}),
 });
 
-export type Config = z.infer<typeof configSchema>;
+export type Config = z.infer<typeof configShape>;

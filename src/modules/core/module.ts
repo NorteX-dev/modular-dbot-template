@@ -1,4 +1,4 @@
-import { ModuleMetadata } from "../../lib/modules";
+import { ModuleMetadata } from "nhandler/framework";
 import { coreRouter } from "./api";
 import SettingsCommand from "./commands/settings";
 import SettingsEntity from "./entities";

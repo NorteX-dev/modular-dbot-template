@@ -1,14 +1,13 @@
-import "reflect-metadata";
-import { config as env } from "dotenv";
 import { Client, GatewayIntentBits } from "discord.js";
-import { debugLog, severeLog, welcome, writeLogToFile } from "./lib/logger";
 import { createCommands, createComponents, createEvents } from "nhandler";
-import { Module, loadModules } from "./lib/modules";
-import { Config } from "./configShape";
+import { debugLog, severeLog, welcomeLog, writeLogToFile, loadModules, modules, loadConfig } from "nhandler/framework";
+import { InteractionCreateEvent, ReadyEvent } from "./eventHandlers";
+import { Config, configShape } from "./configShape";
 import { initWebserver } from "./webserver";
-import { loadConfig } from "./lib/util";
 import { BaseEntity, DataSource } from "typeorm";
-import { InteractionCreateEvent, ReadyEvent } from "./lib/eventHandlers";
+import { config as env } from "dotenv";
+import { readPackageJson } from "./util";
+import path from "path";
 
 env();
 
@@ -27,33 +26,33 @@ export let commandHandler = createCommands({ client });
 export let eventHandler = createEvents({ client });
 export let componentHandler = createComponents({ client });
 export let dataSource: DataSource;
-export let modules: Module[] = [];
 export let config: Config;
 
 commandHandler.on("debug", debugLog);
 eventHandler.on("debug", debugLog);
 componentHandler.on("debug", debugLog);
 
-export const getAction = (moduleId: string, actionId: string) => {
-	const module = modules.find((m) => m.metadata.id === moduleId);
-	if (!module) return;
-	return module.metadata.actions?.[actionId];
-};
-
-export const init = async () => {
+export const createApp = async () => {
 	try {
 		writeLogToFile(`\n--- Log start at ${new Date().toISOString()} ---\n`);
-		welcome();
+		const { name, pretty_name, version } = readPackageJson();
+		welcomeLog(pretty_name || name || "Unknown", version || "Unknown");
 		eventHandler.register(new ReadyEvent()).register(new InteractionCreateEvent());
-		modules = await loadModules();
-		config = await loadConfig();
+		await loadModules({ commandHandler, eventHandler, componentHandler });
+
+		config = await loadConfig<Config>(configShape, path.join(__dirname, "../config.yml"));
 		if (config.webserver.enabled) initWebserver(config.webserver.port);
 
 		let entities: (typeof BaseEntity)[] = modules.map((module) => module.metadata.entities || []).flat();
 
 		const dbUrl = new URL(config.database.url);
+
+		const sqlProtocol = dbUrl.protocol.replace(":", "");
+		if (!["mysql", "postgres", "sqlite"].includes(sqlProtocol)) {
+			throw new Error("Invalid database protocol");
+		}
 		dataSource = new DataSource({
-			type: dbUrl.protocol.replace(":", "") as any,
+			type: sqlProtocol as "mysql" | "postgres" | "sqlite",
 			host: dbUrl.hostname,
 			port: parseInt(dbUrl.port),
 			username: dbUrl.username,
@@ -83,5 +82,3 @@ process.on("uncaughtException", (err) => {
 	severeLog("Uncaught exception:", err);
 	severeLog("When contacting support, make sure to send them a screenshot of this error in full.");
 });
-
-init();

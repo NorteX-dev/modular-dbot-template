@@ -1,9 +1,6 @@
 import { existsSync, readFileSync } from "fs";
 import path from "path";
-import { severeLog } from "./logger";
-import { Config, configSchema } from "../configShape";
-import yaml from "js-yaml";
-import { prettifyZodError } from "@nortex/pretty-zod-error";
+import { severeLog } from "nhandler/framework";
 
 type Package = {
 	name?: string;
@@ -27,24 +24,4 @@ export const readPackageJson = (): Package => {
 	}
 	const pckg: Package = JSON.parse(readFileSync(path.join(__dirname, "../../package.json"), "utf-8"));
 	return pckg;
-};
-
-export const loadConfig = async (): Promise<Config> => {
-	let yamlFile: any;
-	try {
-		yamlFile = yaml.load(readFileSync(path.join(__dirname, "../../config.yml"), "utf-8"));
-	} catch (err) {
-		severeLog("Fatal: config.yml is not a valid YAML file.");
-		process.exit(1);
-	}
-
-	let result = configSchema.safeParse(yamlFile);
-	if (!result.success) {
-		severeLog("Fatal: Failed to parse configuration file. Errors:");
-		severeLog(prettifyZodError(result.error));
-		process.exit(1);
-	}
-
-	let config = result.data;
-	return config;
 };

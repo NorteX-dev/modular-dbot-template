@@ -3,8 +3,8 @@ import { CommandError } from "nhandler";
 
 import { settingsData } from "./lib";
 import Settings from "../entities";
-import { infoEmbed, successEmbed } from "../../../lib/embeds";
-import { BaseCommand } from "../../../lib/baseCommand";
+import { BaseCommand } from "../../../abstract";
+import { infoEmbed, successEmbed } from "nhandler/framework";
 
 export default class SettingsCommand extends BaseCommand {
 	name = "settings";

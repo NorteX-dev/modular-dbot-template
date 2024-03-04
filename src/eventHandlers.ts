@@ -1,7 +1,7 @@
 import { Client, Interaction } from "discord.js";
-import { commandHandler, componentHandler, getAction, modules } from "..";
 import { Event, isAutocompleteInteraction, isCommandInteraction, isComponentInteraction } from "nhandler";
-import { debugLog, infoLog } from "./logger";
+import { commandHandler, componentHandler } from ".";
+import { debugLog, getAction, infoLog } from "nhandler/framework";
 
 export class ReadyEvent implements Event {
 	client!: Client;
