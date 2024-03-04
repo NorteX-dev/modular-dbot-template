@@ -51,6 +51,7 @@ export const createApp = async () => {
 		if (!["mysql", "postgres", "sqlite"].includes(sqlProtocol)) {
 			throw new Error("Invalid database protocol");
 		}
+		// TODO : support sqlite better
 		dataSource = new DataSource({
 			type: sqlProtocol as "mysql" | "postgres" | "sqlite",
 			host: dbUrl.hostname,
