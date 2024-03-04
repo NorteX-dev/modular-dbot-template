@@ -1,6 +1,16 @@
 import { Client, GatewayIntentBits } from "discord.js";
 import { createCommands, createComponents, createEvents } from "nhandler";
-import { debugLog, severeLog, welcomeLog, writeLogToFile, loadModules, modules, loadConfig } from "nhandler/framework";
+import {
+	debugLog,
+	severeLog,
+	welcomeLog,
+	writeLogToFile,
+	loadModules,
+	modules,
+	loadConfig,
+	getModule,
+	getModules,
+} from "nhandler/framework";
 import { InteractionCreateEvent, ReadyEvent } from "./eventHandlers";
 import { Config, configShape } from "./configShape";
 import { initWebserver } from "./webserver";
@@ -10,6 +20,37 @@ import { readPackageJson } from "./util";
 import path from "path";
 
 env();
+
+const createDb = async (entities: (typeof BaseEntity)[]) => {
+	const dbUrl = new URL(config.database.url);
+
+	const sqlProtocol = dbUrl.protocol.replace(":", "");
+	if (!["mysql", "postgres"].includes(sqlProtocol)) {
+		dataSource = new DataSource({
+			type: sqlProtocol as "mysql" | "postgres",
+			host: dbUrl.hostname,
+			port: parseInt(dbUrl.port),
+			username: dbUrl.username,
+			password: dbUrl.password,
+			database: dbUrl.pathname.slice(1),
+			synchronize: config.database.synchronize,
+			logging: config.database.logging,
+			entities: entities,
+		});
+	} else if (sqlProtocol === "sqlite") {
+		dataSource = new DataSource({
+			type: "sqlite",
+			database: dbUrl.hostname,
+			synchronize: config.database.synchronize,
+			logging: config.database.logging,
+			entities: entities,
+		});
+	} else {
+		throw new Error("Invalid database protocol");
+	}
+
+	await dataSource.initialize();
+};
 
 export let client = new Client({
 	intents: [
@@ -45,26 +86,7 @@ export const createApp = async () => {
 
 		let entities: (typeof BaseEntity)[] = modules.map((module) => module.metadata.entities || []).flat();
 
-		const dbUrl = new URL(config.database.url);
-
-		const sqlProtocol = dbUrl.protocol.replace(":", "");
-		if (!["mysql", "postgres", "sqlite"].includes(sqlProtocol)) {
-			throw new Error("Invalid database protocol");
-		}
-		// TODO : support sqlite better
-		dataSource = new DataSource({
-			type: sqlProtocol as "mysql" | "postgres" | "sqlite",
-			host: dbUrl.hostname,
-			port: parseInt(dbUrl.port),
-			username: dbUrl.username,
-			password: dbUrl.password,
-			database: dbUrl.pathname.slice(1),
-			synchronize: config.database.synchronize,
-			logging: config.database.logging,
-			entities: entities,
-		});
-
-		await dataSource.initialize();
+		createDb(entities);
 		await client.login(config.token || process.env.DISCORD_BOT_TOKEN);
 	} catch (err) {
 		severeLog("Failed to initialize bot. Error:");
