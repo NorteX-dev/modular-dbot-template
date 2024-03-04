@@ -1,16 +1,16 @@
 import { ModuleMetadata } from "../../lib/modules";
-import { settingsRouter } from "./api";
+import { coreRouter } from "./api";
 import SettingsCommand from "./commands/settings";
 import SettingsEntity from "./entities";
 
 export const metadata: ModuleMetadata = {
 	enabled: true,
-	id: "settings",
+	id: "core",
 	commands: [new SettingsCommand()],
 	events: [],
 	components: [],
 	entities: [SettingsEntity],
-	router: settingsRouter,
+	router: coreRouter,
 	actions: {
 		getSettings: (guildId: string) => {
 			return SettingsEntity.findOne({ where: { guildId: guildId } });

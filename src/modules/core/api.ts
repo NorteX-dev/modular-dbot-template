@@ -5,8 +5,8 @@ const app = new Hono();
 app.get("/", (ctx) => {
 	return ctx.json({
 		ok: true,
-		message: "Welcome to the settings module!",
+		message: "Welcome to the core module!",
 	});
 });
 
-export { app as settingsRouter };
+export { app as coreRouter };
