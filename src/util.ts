@@ -1,6 +1,10 @@
 import { existsSync, readFileSync } from "fs";
 import path from "path";
-import { severeLog } from "nhandler/framework";
+import { errorEmbed, severeLog } from "nhandler/framework";
+import { ChatInputCommandInteraction, Client } from "discord.js";
+import { Command, CommandError } from "nhandler";
+import { BaseEntity, BeforeInsert, CreateDateColumn, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { nanoid } from "nanoid";
 
 type Package = {
 	name?: string;
@@ -18,10 +22,40 @@ type Package = {
 };
 
 export const readPackageJson = (): Package => {
-	if (!existsSync(path.join(__dirname, "../../package.json"))) {
+	const packagePath = path.join(__dirname, "../package.json");
+	if (!existsSync(packagePath)) {
 		severeLog("Fatal: package.json not found. Please make sure you are in the root directory of the project.");
 		process.exit(1);
 	}
-	const pckg: Package = JSON.parse(readFileSync(path.join(__dirname, "../../package.json"), "utf-8"));
+	const pckg: Package = JSON.parse(readFileSync(packagePath, "utf-8"));
 	return pckg;
 };
+
+export abstract class BaseCommand implements Command {
+	client!: Client;
+	abstract name: string;
+	abstract description: string;
+
+	async error(interaction: ChatInputCommandInteraction, error: CommandError): Promise<void> {
+		interaction.reply({ embeds: [errorEmbed(error.message)], ephemeral: true });
+		return;
+	}
+
+	abstract run(interaction: ChatInputCommandInteraction, ...args: any[]): Promise<void>;
+}
+
+export abstract class WithIdAndTimestamps extends BaseEntity {
+	@PrimaryColumn({ type: "varchar", length: 12 })
+	id!: string;
+
+	@BeforeInsert()
+	assignId() {
+		this.id = nanoid(12);
+	}
+
+	@CreateDateColumn()
+	createdAt!: Date;
+
+	@UpdateDateColumn()
+	updatedAt!: Date;
+}

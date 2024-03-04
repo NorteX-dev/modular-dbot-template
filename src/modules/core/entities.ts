@@ -1,5 +1,5 @@
 import { Column, Entity } from "typeorm";
-import { WithIdAndTimestamps } from "../../abstract";
+import { WithIdAndTimestamps } from "../../util";
 
 @Entity({ name: "settings" })
 export default class SettingsEntity extends WithIdAndTimestamps {
