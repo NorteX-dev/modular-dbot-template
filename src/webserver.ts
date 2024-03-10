@@ -1,9 +1,10 @@
 import { serve } from "@hono/node-server";
+import { debugLog, getModules } from "$lib";
 import { Hono } from "hono";
-import { logger } from "hono/logger";
 import { cors } from "hono/cors";
+import { logger } from "hono/logger";
+
 import { client } from ".";
-import { debugLog, getModules } from "nhandler/framework";
 
 export const masterHono = new Hono();
 
@@ -29,7 +30,7 @@ const init = async (port: number) => {
 	debugLog(
 		`[Webserver] Mounted ${registeredEndpoints.length} API routes: ${registeredEndpoints
 			.map((e) => `/${e}`)
-			.join(", ")}.`
+			.join(", ")}.`,
 	);
 
 	masterHono.all("*", (ctx) => {

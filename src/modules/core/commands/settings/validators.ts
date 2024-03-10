@@ -2,7 +2,7 @@ import { CategoryChannel, ChannelType, Collection, Guild, GuildBasedChannel, Rol
 
 function getChannel({ value, guild }: { value: string; guild: Guild }): TextChannel | undefined {
 	const textChannels = guild.channels.cache.filter(
-		(r: GuildBasedChannel) => r.type === ChannelType.GuildText
+		(r: GuildBasedChannel) => r.type === ChannelType.GuildText,
 	) as Collection<string, TextChannel>;
 	return (
 		textChannels.find((r: GuildBasedChannel) => r.toString() === value) ||
@@ -21,7 +21,7 @@ function getRole({ value, guild }: { value: string; guild: Guild }): Role | unde
 
 function getCategory({ value, guild }: { value: string; guild: Guild }): CategoryChannel | undefined {
 	const categoryChannels = guild.channels.cache.filter(
-		(r: GuildBasedChannel) => r.type === ChannelType.GuildCategory
+		(r: GuildBasedChannel) => r.type === ChannelType.GuildCategory,
 	) as Collection<string, CategoryChannel>;
 	return (
 		categoryChannels.find((cat: GuildBasedChannel) => cat.toString() === value) ||

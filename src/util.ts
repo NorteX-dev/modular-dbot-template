@@ -1,10 +1,10 @@
 import { existsSync, readFileSync } from "fs";
 import path from "path";
-import { errorEmbed, severeLog } from "nhandler/framework";
+import { errorEmbed, severeLog } from "@lib/index";
 import { ChatInputCommandInteraction, Client } from "discord.js";
+import { nanoid } from "nanoid";
 import { Command, CommandError } from "nhandler";
 import { BaseEntity, BeforeInsert, CreateDateColumn, PrimaryColumn, UpdateDateColumn } from "typeorm";
-import { nanoid } from "nanoid";
 
 type Package = {
 	name?: string;

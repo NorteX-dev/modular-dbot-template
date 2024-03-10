@@ -1,13 +1,16 @@
-import { Client, GatewayIntentBits } from "discord.js";
-import { createCommands, createComponents, createEvents } from "nhandler";
-import { debugLog, severeLog, welcomeLog, writeLogToFile, loadModules, modules, loadConfig } from "nhandler/framework";
-import { InteractionCreateEvent, ReadyEvent } from "./eventHandlers";
-import { Config, configShape } from "./configShape";
-import { initWebserver } from "./webserver";
-import { BaseEntity, DataSource } from "typeorm";
-import { config as env } from "dotenv";
-import { readPackageJson } from "./util";
+import "module-alias/register";
+
 import path from "path";
+import { debugLog, loadConfig, loadModules, modules, severeLog, welcomeLog, writeLogToFile } from "$lib";
+import { Client, GatewayIntentBits } from "discord.js";
+import { config as env } from "dotenv";
+import { createCommands, createComponents, createEvents } from "nhandler";
+import { BaseEntity, DataSource } from "typeorm";
+
+import { Config, configShape } from "./configShape";
+import { InteractionCreateEvent, ReadyEvent } from "./eventHandlers";
+import { readPackageJson } from "./util";
+import { initWebserver } from "./webserver";
 
 env();
 
@@ -22,15 +25,27 @@ export let client = new Client({
 		GatewayIntentBits.MessageContent,
 	],
 });
+
 export let commandHandler = createCommands({ client });
 export let eventHandler = createEvents({ client });
 export let componentHandler = createComponents({ client });
+
 export let dataSource: DataSource;
 export let config: Config;
 
 commandHandler.on("debug", debugLog);
 eventHandler.on("debug", debugLog);
 componentHandler.on("debug", debugLog);
+
+process.on("unhandledRejection", (err) => {
+	severeLog("Unhandled rejection:", err);
+	severeLog("When contacting support, make sure to send them a screenshot of this error in full.");
+});
+
+process.on("uncaughtException", (err) => {
+	severeLog("Uncaught exception:", err);
+	severeLog("When contacting support, make sure to send them a screenshot of this error in full.");
+});
 
 export const createApp = async () => {
 	try {
@@ -54,16 +69,6 @@ export const createApp = async () => {
 		process.exit(1);
 	}
 };
-
-process.on("unhandledRejection", (err) => {
-	severeLog("Unhandled rejection:", err);
-	severeLog("When contacting support, make sure to send them a screenshot of this error in full.");
-});
-
-process.on("uncaughtException", (err) => {
-	severeLog("Uncaught exception:", err);
-	severeLog("When contacting support, make sure to send them a screenshot of this error in full.");
-});
 
 const createDb = async (entities: (typeof BaseEntity)[]) => {
 	const dbUrl = new URL(config.database.url);

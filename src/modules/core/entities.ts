@@ -1,4 +1,5 @@
 import { Column, Entity } from "typeorm";
+
 import { WithIdAndTimestamps } from "../../util";
 
 @Entity({ name: "settings" })

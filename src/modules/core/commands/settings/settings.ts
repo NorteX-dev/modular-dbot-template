@@ -1,10 +1,10 @@
 import { ApplicationCommandOptionType, ChatInputCommandInteraction, PermissionsBitField } from "discord.js";
 import { CommandError } from "nhandler";
 
-import { settingsData } from "./lib";
-import Settings from "../../entities";
-import { infoEmbed, successEmbed } from "nhandler/framework";
+import { infoEmbed, successEmbed } from "../../../../lib";
 import { BaseCommand } from "../../../../util";
+import Settings from "../../entities";
+import { settingsData } from "./lib";
 
 export default class SettingsCommand extends BaseCommand {
 	name = "settings";
@@ -96,7 +96,7 @@ export default class SettingsCommand extends BaseCommand {
 					`Successfully set \`${setting}\` to ${data.formatter({
 						value: newValue,
 						guild: interaction.guild!,
-					})}.`
+					})}.`,
 				),
 			],
 		});
