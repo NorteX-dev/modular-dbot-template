@@ -28,7 +28,7 @@ export const warnLog = (...messages: any[]) => {
 };
 
 export const writeLogToFile = (...messages: any[]) => {
-	const filePath = path.join(__dirname, "../../log.txt");
+	const filePath = path.join(process.cwd(), "log.txt");
 	const log = messages.map((m) => (typeof m === "string" ? m : inspect(m))).join(" ") + "\n";
 	if (!existsSync(filePath)) writeFileSync(filePath, log);
 	writeFile(filePath, log, { flag: "a" }, (err) => {

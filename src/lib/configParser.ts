@@ -1,8 +1,9 @@
 import { readFileSync } from "fs";
 import { prettifyZodError } from "@nortex/pretty-zod-error";
-import { severeLog } from "$lib";
 import yaml from "js-yaml";
 import type { ZodObject } from "zod";
+
+import { severeLog } from ".";
 
 export const loadConfig = async <T>(configShape: ZodObject<any>, path: string): Promise<T> => {
 	let yamlFile: any;

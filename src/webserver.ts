@@ -1,10 +1,10 @@
 import { serve } from "@hono/node-server";
-import { debugLog, getModules } from "$lib";
 import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 
 import { client } from ".";
+import { debugLog, getModules } from "./lib";
 
 export const masterHono = new Hono();
 

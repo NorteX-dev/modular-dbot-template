@@ -2,3 +2,4 @@
 /node_modules
 cli/node_modules
 log.txt
+dist/

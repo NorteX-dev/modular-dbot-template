@@ -1,9 +1,10 @@
 import { readdirSync } from "fs";
 import path from "path";
-import { debugLog, severeLog, warnLog } from "$lib";
 import type { Hono } from "hono";
 import type { Command, CommandHandler, Component, ComponentHandler, Event, EventHandler } from "nhandler";
 import type { BaseEntity } from "typeorm";
+
+import { debugLog, severeLog, warnLog } from ".";
 
 export let modules: Module[] = [];
 

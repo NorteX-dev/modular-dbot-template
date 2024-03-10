@@ -11,7 +11,7 @@ import { debugLog, loadConfig, loadModules, modules, severeLog, welcomeLog, writ
 import { readPackageJson } from "./util";
 import { initWebserver } from "./webserver";
 
-moduleAlias(path.join(__dirname, ".."));
+moduleAlias(process.cwd());
 
 env();
 
@@ -54,9 +54,14 @@ export const createApp = async () => {
 		const { name, pretty_name, version } = readPackageJson();
 		welcomeLog(pretty_name || name || "Unknown", version || "Unknown");
 		eventHandler.register(new ReadyEvent()).register(new InteractionCreateEvent());
-		await loadModules({ modulesPath: path.join(__dirname, "modules"), commandHandler, eventHandler, componentHandler });
+		await loadModules({
+			modulesPath: path.join(process.cwd(), "src/modules"),
+			commandHandler,
+			eventHandler,
+			componentHandler,
+		});
 
-		config = await loadConfig<Config>(configShape, path.join(__dirname, "../config.yml"));
+		config = await loadConfig<Config>(configShape, path.join(process.cwd(), "config.yml"));
 		if (config.webserver.enabled) initWebserver(config.webserver.port);
 
 		let entities: (typeof BaseEntity)[] = modules.map((module) => module.metadata.entities || []).flat();

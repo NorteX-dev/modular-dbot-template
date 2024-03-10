@@ -1,10 +1,11 @@
 import { existsSync, readFileSync } from "fs";
 import path from "path";
-import { errorEmbed, severeLog } from "$lib";
 import { ChatInputCommandInteraction, Client } from "discord.js";
 import { nanoid } from "nanoid";
 import { Command, CommandError } from "nhandler";
 import { BaseEntity, BeforeInsert, CreateDateColumn, PrimaryColumn, UpdateDateColumn } from "typeorm";
+
+import { errorEmbed, severeLog } from "./lib";
 
 type Package = {
 	name?: string;
@@ -22,7 +23,7 @@ type Package = {
 };
 
 export const readPackageJson = (): Package => {
-	const packagePath = path.join(__dirname, "../package.json");
+	const packagePath = path.join(process.cwd(), "package.json");
 	if (!existsSync(packagePath)) {
 		severeLog("Fatal: package.json not found. Please make sure you are in the root directory of the project.");
 		process.exit(1);
