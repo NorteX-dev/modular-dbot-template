@@ -1,16 +1,17 @@
-import "module-alias/register";
-
 import path from "path";
-import { debugLog, loadConfig, loadModules, modules, severeLog, welcomeLog, writeLogToFile } from "$lib";
 import { Client, GatewayIntentBits } from "discord.js";
 import { config as env } from "dotenv";
+import moduleAlias from "module-alias";
 import { createCommands, createComponents, createEvents } from "nhandler";
 import { BaseEntity, DataSource } from "typeorm";
 
 import { Config, configShape } from "./configShape";
 import { InteractionCreateEvent, ReadyEvent } from "./eventHandlers";
+import { debugLog, loadConfig, loadModules, modules, severeLog, welcomeLog, writeLogToFile } from "./lib";
 import { readPackageJson } from "./util";
 import { initWebserver } from "./webserver";
+
+moduleAlias(path.join(__dirname, ".."));
 
 env();
 

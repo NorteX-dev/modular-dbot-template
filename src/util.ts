@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from "fs";
 import path from "path";
-import { errorEmbed, severeLog } from "@lib/index";
+import { errorEmbed, severeLog } from "$lib";
 import { ChatInputCommandInteraction, Client } from "discord.js";
 import { nanoid } from "nanoid";
 import { Command, CommandError } from "nhandler";

@@ -1,5 +1,4 @@
-import { ModuleMetadata } from "nhandler/framework";
-
+import { ModuleMetadata } from "../../lib";
 import SettingsCommand from "./commands/settings/settings";
 import SettingsEntity from "./entities";
 

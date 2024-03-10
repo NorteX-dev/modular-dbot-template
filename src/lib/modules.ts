@@ -28,7 +28,9 @@ export const loadModules = async ({
 	// Load modules into array
 	try {
 		for (let modulePath of paths) {
-			const module = await import(path.join(modulePath, "./module.ts").replace(new RegExp("\\\\", "gi"), "/"));
+			const module = await import(
+				path.join("file:///" + modulePath, "./module.ts").replace(new RegExp("\\\\", "gi"), "/")
+			);
 			if (!("metadata" in module) || !("init" in module)) {
 				severeLog(
 					`Skipping loading module from '${modulePath}'. Please make sure the module exports a 'metadata' and 'init' property.`,
@@ -107,7 +109,7 @@ export const getModules = () => {
  *
  * @param moduleId The id of the module.
  */
-export const getModule = (moduleId: string) => {
+export const getModule = (moduleId: string): Module | undefined => {
 	return modules.find((m) => m.metadata.id === moduleId);
 };
 
@@ -118,7 +120,7 @@ export const getModule = (moduleId: string) => {
  */
 
 export const moduleActive = (moduleId: string): boolean => {
-	const module = modules.find((m) => m.metadata.id === moduleId);
+	const module = getModule(moduleId);
 	return module?.metadata.enabled ?? false;
 };
 
@@ -130,9 +132,8 @@ export const moduleActive = (moduleId: string): boolean => {
  * @param actionId The name of the action (as defined in the object key).
  * */
 export const getAction = (moduleId: string, actionId: string) => {
-	const module = modules.find((m) => m.metadata.id === moduleId);
-	if (!module) return;
-	return module.metadata.actions?.[actionId];
+	const module = getModule(moduleId);
+	return module?.metadata.actions?.[actionId];
 };
 
 export type ModuleMetadata = {
