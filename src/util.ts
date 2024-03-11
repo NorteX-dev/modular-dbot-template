@@ -1,7 +1,6 @@
 import { existsSync, readFileSync } from "fs";
 import path from "path";
 import { ChatInputCommandInteraction, Client } from "discord.js";
-import { nanoid } from "nanoid";
 import { Command, CommandError } from "nhandler";
 import { BaseEntity, BeforeInsert, CreateDateColumn, PrimaryColumn, UpdateDateColumn } from "typeorm";
 
@@ -28,8 +27,8 @@ export const readPackageJson = (): Package => {
 		severeLog("Fatal: package.json not found. Please make sure you are in the root directory of the project.");
 		process.exit(1);
 	}
-	const pckg: Package = JSON.parse(readFileSync(packagePath, "utf-8"));
-	return pckg;
+	const pkg: Package = JSON.parse(readFileSync(packagePath, "utf-8"));
+	return pkg;
 };
 
 export abstract class BaseCommand implements Command {
@@ -51,7 +50,7 @@ export abstract class WithIdAndTimestamps extends BaseEntity {
 
 	@BeforeInsert()
 	assignId() {
-		this.id = nanoid(12);
+		// this.id = nanoid(12);
 	}
 
 	@CreateDateColumn()

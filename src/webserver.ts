@@ -27,10 +27,9 @@ const init = async (port: number) => {
 		}
 	}
 
+	const endpointList = registeredEndpoints.map((e) => `/${e}`).join(", ");
 	debugLog(
-		`[Webserver] Mounted ${registeredEndpoints.length} API routes: ${registeredEndpoints
-			.map((e) => `/${e}`)
-			.join(", ")}.`,
+		`[Webserver] Mounted ${registeredEndpoints.length} API routes${endpointList.length === 0 ? "" : ": " + endpointList}.`,
 	);
 
 	masterHono.all("*", (ctx) => {

@@ -55,7 +55,7 @@ export const createApp = async () => {
 		welcomeLog(pretty_name || name || "Unknown", version || "Unknown");
 		eventHandler.register(new ReadyEvent()).register(new InteractionCreateEvent());
 		await loadModules({
-			modulesPath: path.join(process.cwd(), "src/modules"),
+			modulesPath: path.join(__dirname, "./modules"),
 			commandHandler,
 			eventHandler,
 			componentHandler,

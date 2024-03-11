@@ -3,8 +3,7 @@
 	"pretty_name": "NLicensing",
 	"version": "1.0.0",
 	"description": "",
-	"module": "dist/index.js",
-	"type": "module",
+	"main": "dist/index.js",
 	"scripts": {
 		"dev": "tsx watch src/index.ts"
 	},

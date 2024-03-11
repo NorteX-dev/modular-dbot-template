@@ -29,9 +29,7 @@ export const loadModules = async ({
 	// Load modules into array
 	try {
 		for (let modulePath of paths) {
-			const module = await import(
-				path.join("file:///" + modulePath, "./module.ts").replace(new RegExp("\\\\", "gi"), "/")
-			);
+			const module = await import(path.join(modulePath, "./module").replace(new RegExp("\\\\", "gi"), "/"));
 			if (!("metadata" in module) || !("init" in module)) {
 				severeLog(
 					`Skipping loading module from '${modulePath}'. Please make sure the module exports a 'metadata' and 'init' property.`,

@@ -1,14 +1,15 @@
 {
 	"compilerOptions": {
-		"target": "ESNext",
-		"module": "ESNext",
-		"moduleResolution": "Bundler",
+		"target": "ES2020",
+		"module": "CommonJS",
+		// "moduleResolution": "Bundler",
 		"strict": true,
 		"outDir": "dist",
 		"rootDir": "src",
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"baseUrl": ".",
+		"esModuleInterop": true,
 		"paths": {
 			// "$lib": ["src/lib/index"],
 			// "@/*": ["src/*"],
