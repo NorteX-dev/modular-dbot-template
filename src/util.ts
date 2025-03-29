@@ -1,7 +1,7 @@
 import { existsSync, readFileSync } from "fs";
 import path from "path";
 import { ChatInputCommandInteraction, Client } from "discord.js";
-import { Command, CommandError } from "nhandler";
+import { Command, ExecutionError } from "nhandler";
 import { BaseEntity, BeforeInsert, CreateDateColumn, PrimaryColumn, UpdateDateColumn } from "typeorm";
 
 import { errorEmbed, severeLog } from "./lib";
@@ -36,7 +36,7 @@ export abstract class BaseCommand implements Command {
 	abstract name: string;
 	abstract description: string;
 
-	async error(interaction: ChatInputCommandInteraction, error: CommandError): Promise<void> {
+	async error(interaction: ChatInputCommandInteraction, error: ExecutionError): Promise<void> {
 		interaction.reply({ embeds: [errorEmbed(error.message)], ephemeral: true });
 		return;
 	}

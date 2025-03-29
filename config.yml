@@ -1,11 +1,11 @@
 token: "" # if empty, taken from DISCORD_BOT_TOKEN env
 
 database:
-  # url: "postgres://postgres:postgrespw@localhost:5432/test2"
-  url: "sqlite://database.db"
-  logging: false
-  synchronize: true
+    # url: "postgres://postgres:postgrespw@localhost:5432/test2"
+    url: "sqlite://database.db"
+    logging: false
+    synchronize: true
 
 webserver:
-  enabled: true
-  port: 3000
+    enabled: true
+    port: 3000

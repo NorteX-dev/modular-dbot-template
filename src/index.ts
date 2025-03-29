@@ -1,7 +1,6 @@
 import path from "path";
 import { Client, GatewayIntentBits } from "discord.js";
 import { config as env } from "dotenv";
-import moduleAlias from "module-alias";
 import { createCommands, createComponents, createEvents } from "nhandler";
 import { BaseEntity, DataSource } from "typeorm";
 
@@ -10,8 +9,6 @@ import { InteractionCreateEvent, ReadyEvent } from "./eventHandlers";
 import { debugLog, loadConfig, loadModules, modules, severeLog, welcomeLog, writeLogToFile } from "./lib";
 import { readPackageJson } from "./util";
 import { initWebserver } from "./webserver";
-
-moduleAlias(process.cwd());
 
 env();
 
@@ -62,7 +59,7 @@ export const createApp = async () => {
 		});
 
 		config = await loadConfig<Config>(configShape, path.join(process.cwd(), "config.yml"));
-		if (config.webserver.enabled) initWebserver(config.webserver.port);
+		if (config.webserver.enabled) await initWebserver(config.webserver.port);
 
 		let entities: (typeof BaseEntity)[] = modules.map((module) => module.metadata.entities || []).flat();
 

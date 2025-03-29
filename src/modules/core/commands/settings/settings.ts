@@ -1,8 +1,8 @@
 import { ApplicationCommandOptionType, ChatInputCommandInteraction, PermissionsBitField } from "discord.js";
-import { CommandError } from "nhandler";
+import { ExecutionError } from "nhandler";
 
-import { infoEmbed, successEmbed } from "../../../../lib";
-import { BaseCommand } from "../../../../util";
+import { infoEmbed, successEmbed } from "@/lib";
+import { BaseCommand } from "@/util";
 import Settings from "../../entities";
 import { settingsData } from "./lib";
 
@@ -70,27 +70,27 @@ export default class SettingsCommand extends BaseCommand {
 		const value = interaction.options.getString("value", true);
 		const data = settingsData.find((s) => s.key === name);
 		if (!data) {
-			throw new CommandError(`No setting with the name \`${name}\` exists.`);
+			throw new ExecutionError(`No setting with the name \`${name}\` exists.`);
 		}
 		const error = data.validator({ value: value, guild: interaction.guild! });
 		if (error) {
-			throw new CommandError(error);
+			throw new ExecutionError(error);
 		}
 		const newValue = data.transform({
 			value: value,
 			guild: interaction.guild!,
 		});
 		if (!newValue) {
-			throw new CommandError("Invalid value.");
+			throw new ExecutionError("Invalid value.");
 		}
 		if (newValue === settings[name]) {
-			throw new CommandError("The value is already set to that.");
+			throw new ExecutionError("The value is already set to that.");
 		}
 		await interaction.deferReply({ ephemeral: true });
 		settings[name] = newValue;
 		await settings.save();
 		const setting = settingsData.find((s) => s.key === name)?.name || name;
-		interaction.editReply({
+		await interaction.editReply({
 			embeds: [
 				successEmbed(
 					`Successfully set \`${setting}\` to ${data.formatter({
@@ -130,17 +130,17 @@ export default class SettingsCommand extends BaseCommand {
 						}) || "Not set";
 				embed.addFields({ name: name, value: formattedValue, inline: true });
 			});
-			interaction.reply({ embeds: [embed], ephemeral: true });
+			await interaction.reply({ embeds: [embed], ephemeral: true });
 		} else {
 			// Display single
 			const data = settingsData.find((s) => s.key === name);
 			if (!data) {
-				throw new CommandError(`No setting with the name \`${name}\` exists.`);
+				throw new ExecutionError(`No setting with the name \`${name}\` exists.`);
 			}
 
 			const formatter = data.formatter({ value: settings[data.key], guild: interaction.guild! }) || "Invalid";
 			const embed = infoEmbed(`\`${data.name}\` is set to ${formatter}.`);
-			interaction.reply({
+			await interaction.reply({
 				embeds: [embed],
 				ephemeral: true,
 			});

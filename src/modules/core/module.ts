@@ -1,4 +1,4 @@
-import { ModuleMetadata } from "../../lib";
+import { ModuleMetadata } from "@/lib";
 import SettingsCommand from "./commands/settings/settings";
 import SettingsEntity from "./entities";
 

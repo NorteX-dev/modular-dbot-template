@@ -2,14 +2,14 @@ import { Client, Interaction } from "discord.js";
 import { Event, isAutocompleteInteraction, isCommandInteraction, isComponentInteraction } from "nhandler";
 
 import { commandHandler, componentHandler } from ".";
-import { debugLog, getAction, infoLog, moduleActive } from "./lib";
+import { debugLog, getAction, infoLog, moduleActive } from "@/lib";
 
 export class ReadyEvent implements Event {
 	client!: Client;
 	name = "ready";
 
 	async run() {
-		commandHandler.updateApplicationCommands();
+		await commandHandler.updateApplicationCommands();
 		infoLog(`Logged in as ${this.client.user?.username}!`);
 	}
 }

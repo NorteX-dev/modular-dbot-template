@@ -135,6 +135,26 @@ export const getAction = (moduleId: string, actionId: string) => {
 	return module?.metadata.actions?.[actionId];
 };
 
+/**
+ * Runs an action from a module.
+ *
+ * @param moduleId The id of the module.
+ * @param actionId The name of the action (as defined in the object key).
+ * @param args The arguments to pass to the action.
+ *
+ * @returns The return value of the action.
+ * If the action does not exist, a warning is logged and nothing is returned.
+ * */
+export const runAction = async (moduleId: string, actionId: string, ...args: any[]) => {
+	const action = getAction(moduleId, actionId);
+	if (!action) {
+		warnLog(`Action '${actionId}' not found in module '${moduleId}'.`);
+		return;
+	}
+
+	return action(...args);
+};
+
 export type ModuleMetadata = {
 	enabled: boolean;
 	id: string;

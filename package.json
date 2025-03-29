@@ -11,32 +11,26 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"@hono/node-server": "^1.8.1",
+		"@hono/node-server": "^1.14.0",
 		"@nortex/pretty-zod-error": "^2.0.0",
 		"ansi-colors": "^4.1.3",
-		"chalk": "^5.3.0",
-		"discord.js": "^14.14.1",
-		"dotenv": "^16.4.4",
-		"hono": "^4.0.4",
+		"chalk": "^5.4.1",
+		"discord.js": "^14.18.0",
+		"dotenv": "^16.4.7",
+		"hono": "^4.7.5",
 		"js-yaml": "^4.1.0",
-		"module-alias": "^2.2.3",
-		"nanoid": "^5.0.5",
-		"nhandler": "^3.2.0",
-		"pg": "^8.11.3",
-		"reflect-metadata": "^0.2.1",
+		"nanoid": "^5.1.5",
+		"nhandler": "^4.3.0",
+		"pg": "^8.14.1",
+		"reflect-metadata": "^0.2.2",
 		"sqlite3": "^5.1.7",
-		"typeorm": "^0.3.20",
-		"zod": "^3.22.4"
+		"typeorm": "^0.3.21",
+		"zod": "^3.24.2"
 	},
 	"devDependencies": {
-		"@ianvs/prettier-plugin-sort-imports": "^4.1.1",
+		"@ianvs/prettier-plugin-sort-imports": "^4.4.1",
 		"@types/js-yaml": "^4.0.9",
 		"@types/module-alias": "^2.0.4",
-		"@types/node": "^20.11.19"
-	},
-	"_moduleAliases": {
-		"$lib": "./src/lib/index",
-		"@": "./src",
-		"@modules": "./src/modules"
+		"@types/node": "^22.13.14"
 	}
 }
